@@ -1,7 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import {
-  BrowserRouter as Router,
   Route,
   Switch,
   Link,
@@ -47,41 +45,39 @@ class App extends React.Component {
   render() {
     const { isLoggedIn } = this.state;
     return (
-      <Router>
-        <div className="main-container">
-          <div>
-            {isLoggedIn
-              ? "Logged in, Now you can enter Playground"
-              : "You are not authenticated, Please login first"}
-          </div>
-          <div>
-            <ul>
-              <li>
-                <Link to="/home">PlayGround</Link>
-              </li>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-            </ul>
-          </div>
-          <Switch>
-            <Route
-              path="/login"
-              render={(props) => (
-                <Login {...props} login={this.login} isLogged={isLoggedIn} />
-              )}
-            />
-            <PrivateRoute
-              exact
-              path="/home"
-              component={Home}
-              isAuthenticated={isLoggedIn}
-              redirect="/login"
-            />
-            <Route component={NotFound} />
-          </Switch>
+      <div className="main-container">
+        <div>
+          {isLoggedIn
+            ? "Logged in, Now you can enter Playground"
+            : "You are not authenticated, Please login first"}
         </div>
-      </Router>
+        <div>
+          <ul>
+            <li>
+              <Link to="/home">PlayGround</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          </ul>
+        </div>
+        <Switch>
+          <Route
+            path="/login"
+            render={(props) => (
+              <Login {...props} login={this.login} isLogged={isLoggedIn} />
+            )}
+          />
+          <PrivateRoute
+            exact
+            path="/home"
+            component={Home}
+            isAuthenticated={isLoggedIn}
+            redirect="/login"
+          />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
     );
   }
 }
